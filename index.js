@@ -22,7 +22,7 @@ app.use(express.json())
 app.use(express.static(path.join(__dirname+"/public")))
 
 const url=process.env.URL_DB
-const con=mongo.connect(url,{}).then(res=>console.log("conneted")).catch(err=>console.log(err))
+// const con=mongo.connect(url,{}).then(res=>console.log("conneted")).catch(err=>console.log(err))
 
 app.use('/adduser',adduser);
 app.use('/authuser',authuser);
@@ -40,3 +40,14 @@ app.use('/cartempty',emptycart)
 app.listen(5000,()=>{
     console.log("running on port 5000")
 })
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+  if (err) {
+    console.error('Error connecting to database:', err);
+    // Handle the error appropriately (e.g., exit the application)
+  } else {
+    // Connection successful, start the server
+    app.listen(5000, () => {
+      console.log('Server is listening on port 3000');
+    });
+  }
+});
