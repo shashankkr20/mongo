@@ -40,14 +40,30 @@ app.use('/cartempty',emptycart)
 // app.listen(5000,()=>{
 //     console.log("running on port 5000")
 // })
-mongo.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
-  if (err) {
-    console.error('Error connecting to database:', err);
-    // Handle the error appropriately (e.g., exit the application)
-  } else {
-    // Connection successful, start the server
-    app.listen(5000, () => {
-      console.log('Server is listening on port 5000');
-    });
+async function startServer() {
+    try {
+      await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+      console.log('Connected to the database');
+      
+      // Start the server
+      app.listen(5000, () => {
+        console.log('Server is listening on port 3000');
+      });
+    } catch (error) {
+      console.error('Error connecting to database:', error);
+      // Handle the error appropriately (e.g., exit the application)
+    }
   }
-});
+  
+  startServer();
+// mongo.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+//   if (err) {
+//     console.error('Error connecting to database:', err);
+//     // Handle the error appropriately (e.g., exit the application)
+//   } else {
+//     // Connection successful, start the server
+//     app.listen(5000, () => {
+//       console.log('Server is listening on port 5000');
+//     });
+//   }
+// });
