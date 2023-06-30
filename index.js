@@ -40,7 +40,7 @@ app.use('/cartempty',emptycart)
 // app.listen(5000,()=>{
 //     console.log("running on port 5000")
 // })
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
+mongo.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
   if (err) {
     console.error('Error connecting to database:', err);
     // Handle the error appropriately (e.g., exit the application)
