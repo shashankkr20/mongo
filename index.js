@@ -42,7 +42,7 @@ app.use('/cartempty',emptycart)
 // })
 async function startServer() {
     try {
-      await mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+      await mongo.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
       console.log('Connected to the database');
       
       // Start the server
