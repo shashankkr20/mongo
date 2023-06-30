@@ -37,9 +37,9 @@ app.use('/wish',wishadd.wishadder)
 app.use('/wish',wishadd.wishrem)
 app.use('/cartempty',emptycart)
 
-app.listen(5000,()=>{
-    console.log("running on port 5000")
-})
+// app.listen(5000,()=>{
+//     console.log("running on port 5000")
+// })
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
   if (err) {
     console.error('Error connecting to database:', err);
@@ -47,7 +47,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err)
   } else {
     // Connection successful, start the server
     app.listen(5000, () => {
-      console.log('Server is listening on port 3000');
+      console.log('Server is listening on port 5000');
     });
   }
 });
