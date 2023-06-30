@@ -19,7 +19,7 @@ const searchwish=require('./Routes/searchwish')
 
 app.use(cors())
 app.use(express.json())
-app.use(express.static(path.join(__dirname+"/public")))
+
 
 const url=process.env.URL_DB
 // const con=mongo.connect(url,{}).then(res=>console.log("conneted")).catch(err=>console.log(err))
