@@ -46,7 +46,7 @@ async function startServer() {
       console.log('Connected to the database');
       
       // Start the server
-      app.listen(5000, () => {
+      app.listen(3000, () => {
         console.log('Server is listening on port 3000');
       });
     } catch (error) {
