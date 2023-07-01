@@ -5,6 +5,7 @@ const mongo=require('mongoose')
 const cors = require("cors");
 const path=require("path")
 const addcart=require('./Routes/cartadd')
+const addord=require('./Routes/orderadd')
 const adduser = require('./Routes/addUser');
 const authuser = require('./Routes/userAuth');
 const addprods = require('./Routes/prodAdd');
@@ -15,6 +16,7 @@ const remall = require('./Routes/removeall');
 const wishadd = require('./Routes/wishadd');
 const emptycart = require('./Routes/cartempty');
 const searchwish=require('./Routes/searchwish')
+const orderget=require('./Routes/fetchorder')
 
 
 app.use(cors())
@@ -36,34 +38,18 @@ app.use('/remall',remall)
 app.use('/wish',wishadd.wishadder)
 app.use('/wish',wishadd.wishrem)
 app.use('/cartempty',emptycart)
-
-// app.listen(5000,()=>{
-//     console.log("running on port 5000")
-// })
+app.use('/orderadd',addord)
+app.use('/fetchorders',orderget)
 async function startServer() {
     try {
       await mongo.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
       console.log('Connected to the database');
-      
-      // Start the server
-      app.listen(process.env.PORT || 3000, () => {
+      app.listen(5000, () => {
         console.log('Server is listening on port 3000');
       });
     } catch (error) {
       console.error('Error connecting to database:', error);
-      // Handle the error appropriately (e.g., exit the application)
     }
   }
   
   startServer();
-// mongo.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err) => {
-//   if (err) {
-//     console.error('Error connecting to database:', err);
-//     // Handle the error appropriately (e.g., exit the application)
-//   } else {
-//     // Connection successful, start the server
-//     app.listen(5000, () => {
-//       console.log('Server is listening on port 5000');
-//     });
-//   }
-// });
