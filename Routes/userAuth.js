@@ -1,27 +1,25 @@
-const express=require('express')
-const app=express();
-const users=require('./../schema/user')
-const authuser=app.get('/:id/:pass',async(req,res)=>{
-    try{
-        console.log(req.params.id+req.params.pass)
-        const adduser=await users.find({"phoneno":req.params.id})
-            if(adduser[0].password===req.params.pass)
-            {
-                console.log(adduser[0])
-                res.send(adduser[0])
-                
-            }
-            else{
-                res.send("not")
-            }
-        
-        
-        
-    }
-    catch(err){
-        console.log(err)
-        res.send("error")
-    }
-})
+const express = require('express');
+const app = express();
+const users = require('../schema/user');
 
-module.exports=authuser
+const authuser = app.get('/:id/:pass', async (req, res) => {
+  try {
+    const { id, pass } = req.params;
+    console.log(`Authentication request for user ID: ${id}`);
+
+    const user = await users.findOne({ "phoneno": id });
+
+    if (user && user.password === pass) {
+      console.log(`User authenticated: ${user.name}`);
+      res.json(user);
+    } else {
+      console.log(`Authentication failed for user ID: ${id}`);
+      res.status(401).json({ error: "Authentication failed" });
+    }
+  } catch (error) {
+    console.error('Error during authentication:', error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+module.exports = authuser;

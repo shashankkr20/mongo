@@ -1,16 +1,17 @@
-const express=require('express')
-const app=express();
-const users=require('./../schema/order')
-const adduser=app.post('/',async(req,res)=>{
-    try{
-        console.log(req.body.perid)
-        const  adduser=await users.create(req.body).then(res.send("added"))
-    // res.send("added")
+const express = require('express');
+const router = express.Router();
+const Order = require('../schema/order');
+
+router.post('/', async (req, res) => {
+    try {
+        console.log(req.body.perid);
+        const newOrder = await Order.create(req.body);
+        console.log('Order added:', newOrder);
+        res.status(201).json({ message: 'Order added successfully' });
+    } catch (error) {
+        console.error('Error adding order:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
-    catch(err){
-        console.log(err)
-        res.send("error")
-    }
-    
-})
-module.exports=adduser
+});
+
+module.exports = router;

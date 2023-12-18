@@ -1,29 +1,32 @@
-const express=require('express')
-const app=express();
-const users=require('./../schema/user');
+const express = require('express');
+const app = express();
+const users = require('./../schema/user');
 const adduser = require('./addUser');
-const cartempty=app.put('/:perid',async(req,res)=>{
-    try{
-        // console.log(req.params.objid+"  "+req.params.quant)
-        
-        const filter = { _id: req.params.perid};
-        // const  adduser=await users.updateOne({_id: req.params.perid},{$push:{cart:newObject}}).then(res.send("added"))
-        const  remcar=await users.updateOne(filter,{ $set: { cart: [] } })
-        if(remcar.matchedCount===1)
-        {
-          res.send("cart emptied")
-        }
-        else 
-        {
-            console.log("not done")
-        }
-        // console.log(remcar)
-    // res.send("added")
+
+app.put('/:perid', async (req, res) => {
+  try {
+    const filter = { _id: req.params.perid };
+
+    // Use findOneAndUpdate to get the document before the update and check if it exists
+    const user = await users.findOne(filter);
+
+    if (!user) {
+      return res.status(404).send('User not found');
     }
-    catch(err){
-        console.log(err)
-        res.send("error")
+
+    // Update the cart to an empty array
+    const result = await users.findOneAndUpdate(filter, { $set: { cart: [] } });
+
+    if (result) {
+      res.status(200).send('Cart emptied');
+    } else {
+      console.log('Cart not emptied');
+      res.status(500).send('Internal Server Error');
     }
-    
-})
-module.exports=cartempty
+  } catch (error) {
+    console.error('Error emptying cart:', error);
+    res.status(500).send('Internal Server Error');
+  }
+});
+
+module.exports = app;
