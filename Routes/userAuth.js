@@ -14,7 +14,8 @@ const authuser = app.get('/:id/:pass', async (req, res) => {
       res.json(user);
     } else {
       console.log(`Authentication failed for user ID: ${id}`);
-      res.status(401).json({ error: "Authentication failed" });
+      res.send('not');
+      // res.status(401).json({ error: "Authentication failed" });
     }
   } catch (error) {
     console.error('Error during authentication:', error);
