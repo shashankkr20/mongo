@@ -17,7 +17,7 @@ const wishadd = require('./Routes/wishadd');
 const emptycart = require('./Routes/cartempty');
 const searchwish=require('./Routes/searchwish')
 const orderget=require('./Routes/fetchorder')
-
+const discounted=require('./Routes/discountProd')
 
 app.use(cors())
 app.use(express.json())
@@ -40,6 +40,7 @@ app.use('/wish',wishadd.wishrem)
 app.use('/cartempty',emptycart)
 app.use('/orderadd',addord)
 app.use('/fetchorders',orderget)
+app.use('/discounted-prods',discounted)
 async function startServer() {
     try {
       await mongo.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
